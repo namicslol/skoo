@@ -115,7 +115,6 @@
       border-right: 2px solid #aaa;
       animation: blinkCursor 0.8s step-end infinite;
       height: 22px;
-      /* Added height to prevent vertical jump */
     }
 
     @keyframes blinkCursor {
@@ -306,19 +305,24 @@
       opacity: 0.2;
     }
 
-    .social-icon {
+    /* Instagram icon: no background, pulsing brightness + hue animation */
+    .social-logos a img.social-icon {
       width: 35px;
       height: 35px;
-      object-fit: contain;
-    }
-
-    .social-logos a {
+      border-radius: 4px;
       display: inline-block;
-      transition: transform 0.3s ease;
+      filter: brightness(1) saturate(1);
+      animation: pulseHueBrightness 3s ease-in-out infinite;
+      background: none !important;
     }
 
-    .social-logos a:hover {
-      transform: scale(1.15);
+    @keyframes pulseHueBrightness {
+      0%, 100% {
+        filter: brightness(1) saturate(1) hue-rotate(0deg);
+      }
+      50% {
+        filter: brightness(1.5) saturate(1.3) hue-rotate(20deg);
+      }
     }
 
     @media (max-width: 480px) {
@@ -525,7 +529,7 @@
     audio.currentTime = seekBar.value;
   });
 
-  // Typewriter Effect
+  // Typewriter Effect for description
   const descElement = document.getElementById('profileDescription');
 
   const phrases = [
@@ -558,12 +562,10 @@
         phraseIndex = (phraseIndex + 1) % phrases.length;
       }
     }
-    setTimeout(typeEffect, typing ? 70 : 40);
+    setTimeout(typeEffect, typing ? 120 : 60);
   }
 
-  window.addEventListener('load', () => {
-    typeEffect();
-  });
+  typeEffect();
 </script>
 
 </body>
